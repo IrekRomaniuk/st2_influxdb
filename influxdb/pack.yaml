@@ -1,0 +1,9 @@
+---
+ref: influxdb
+name: influxdb
+description: Run a query on InfluxDB
+keywords:
+    - influxdb
+version: 0.1.0
+author: Irek Romaniuk
+email: irek.romaniuk@gmail.com
