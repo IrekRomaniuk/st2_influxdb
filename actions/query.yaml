@@ -25,8 +25,18 @@
           description: "url"
           required: true
           position: 3 
+      value:
+          type: "string"
+          description: "value"
+          required: false
+          position: 4     
       measurement:
           type: "string"
           description: "measurement"
           required: false
-          position: 4 
+          position: 5
+      tags:
+          type: "object"
+          description: "tags"
+          required: false
+          position: 6    
