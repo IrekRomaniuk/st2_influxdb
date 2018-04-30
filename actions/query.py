@@ -12,7 +12,7 @@ WINDOW=600
 result_list=[]
 class query(Action):
        
-    def run(self, , value, measurement, tags):
+    def run(self, value, measurement, tags):
         _db = self.config['db']
         _user = self.config['username']
         _pass = self.config['password']
