@@ -14,9 +14,9 @@ class query(Action):
         _user = self.config['username']
         _pass = self.config['password']
         _base_url, _port = self.config['base_url'].split(":") 
-        # print(_db,_user,_pass,_base_url)    
-        client = InfluxDBClient(_base_url, 8086, _user, _pass, _db)
-        query="select {0} from {1} WHERE time > now() - {1}s;".format(value, measurement, WINDOW)
+        print(_db,_user,_pass,_base_url, _port)    
+        client = InfluxDBClient(_base_url, _port, _user, _pass, _db)
+        query="select {0} from {1} WHERE time > now() - {2}s;".format(value, measurement, WINDOW)
         result = client.query(query)
         points = list(result.get_points(measurement=measurement, tags=tags))
         for point in points:
