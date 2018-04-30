@@ -10,7 +10,7 @@
         delta: 60
   
   action:
-    ref: "st2_influxdb.query"
+    ref: "influxdb.query"
     parameters:
       value: "*"
       measurements: "cpu"
