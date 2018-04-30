@@ -1,17 +1,15 @@
 ---
-  name: "query"                                         
-  description: "Run a query on InfluxDB at regular intervals"       
-  enabled: true                          
-  
-  trigger:
-    type: "core.st2.IntervalTimer"
-    parameters:
-        unit: "seconds"
-        delta: 60
-  
-  action:
-    ref: "influxdb.query"
-    parameters:
+name: "query"                                         
+description: "Run a query on InfluxDB at regular intervals"       
+enabled: true                                
+trigger:
+  type: "core.st2.IntervalTimer"
+  parameters:
+      unit: "seconds"
+      delta: 60  
+action:
+  ref: "influxdb.query"
+  parameters:
       value: "*"
       measurements: "cpu"
       tags: "{}"
