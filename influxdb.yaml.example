@@ -1,17 +1,7 @@
 ---
-  base_url:
-    description: "Influxdb endpoint"
-    type: "string"
-    required: true
-  username:
-    description: "username for authentication"
-    type: "string"
-    required: true
-  password:
-    description: "password for authentication"
-    type: "string"
-    required: true  
-  db:
-    description: "target database"
-    type: "string"
-    required: true  
+  base_url: "10.34.1.100:8086"
+  username: "firewall"    
+  password: "password"  
+  db: "firewalls"
+  measurement" "*"
+    
