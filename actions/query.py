@@ -5,7 +5,7 @@ from st2actions.runners.pythonrunner import Action
 python test/influx.py
 """
 CPUMAX=20
-WINDOW=600
+WINDOW=60
 result_list=[]
 class query(Action):
        

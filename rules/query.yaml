@@ -11,3 +11,7 @@
   
   action:
     ref: "st2_influxdb.query"
+    parameters:
+      value: *
+      measurements: cpu
+      tags: {}
