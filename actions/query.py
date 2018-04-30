@@ -1,7 +1,4 @@
-import sys, requests, xmltodict, json, urllib3
-from string import Template
 from influxdb import InfluxDBClient
-import json
 
 from st2actions.runners.pythonrunner import Action
 """
