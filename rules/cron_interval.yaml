@@ -1,0 +1,15 @@
+---
+name: cron_on_interval
+description: Test timer rule
+enabled: true
+
+trigger:
+  type: core.st2.IntervalTimer
+  parameters:
+      unit: seconds
+      delta: 5
+
+action:
+  ref: core.local
+  parameters:
+    cmd: date
