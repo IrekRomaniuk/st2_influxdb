@@ -17,7 +17,7 @@ class query(Action):
         _user = self.config['username']
         _pass = self.config['password']
         _base_url, _port = self.config['base_url'].split(":") 
-        print(_db,_user,_pass,_base_url)    
+        # print(_db,_user,_pass,_base_url)    
         client = InfluxDBClient(_base_url, 8086, _user, _pass, _db)
         query="select {0} from {1} WHERE time > now() - {1}s;".format(value, measurement, WINDOW)
         result = client.query(query)
@@ -25,6 +25,6 @@ class query(Action):
         for point in points:
             string_point=dict([(str(k), str(v)) for k, v in point.items()])
             if int(string_point['value'])>CPUMAX:
-            #print(string_point)
-            result_list.append(string_point)
+                # print(string_point)
+                result_list.append(string_point)
         return (result_list)    
