@@ -4,5 +4,4 @@
   password: "password"  
   db: "firewalls"
   measurement" "*"
-  tags: {}
     
