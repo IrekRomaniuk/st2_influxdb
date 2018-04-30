@@ -4,39 +4,19 @@ runner_type: "python-script"
 description: "Run a query on InfluxDB"
 enabled: true
 entry_point: "query.py"
-parameters:
-    db:
-        type: "string"
-        description: "db"
-        required: true
-        position: 0
-    username:
-        type: "string"
-        description: "username"
-        required: true
-        position: 1  
-    password:
-        type: "string"
-        description: "password"
-        required: true
-        position: 2  
-    base_url:
-        type: "string"
-        description: "url"
-        required: true
-        position: 3 
+parameters:    
     value:
         type: "string"
         description: "value"
         required: false
-        position: 4     
+        position: 0     
     measurement:
         type: "string"
         description: "measurement"
-        required: false
-        position: 5
+        required: true
+        position: 1
     tags:
         type: "object"
         description: "tags"
         required: false
-        position: 6    
+        position: 2    
