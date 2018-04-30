@@ -26,4 +26,4 @@ class query(Action):
             if int(string_point['value'])>CPUMAX:
             #print(string_point)
             result_list.append(string_point)
-        return (string_point)    
+        return (result_list)    
