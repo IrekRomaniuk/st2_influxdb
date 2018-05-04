@@ -9,6 +9,7 @@ Copy the example configuration in **influxdb.yaml.example** to */opt/stackstorm/
 Example configuration:
 
 
+
 ## Using the pack
 
 
