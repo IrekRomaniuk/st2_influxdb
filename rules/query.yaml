@@ -11,4 +11,4 @@ action:
   ref: "influxdb.query"
   parameters:
       value: "*"
-      measurements: "cpu"
+      measurement: "cpu"
