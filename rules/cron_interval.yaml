@@ -1,7 +1,7 @@
 ---
 name: cron_on_interval
 description: Test timer rule
-enabled: true
+enabled: false
 
 trigger:
   type: core.st2.IntervalTimer
