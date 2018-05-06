@@ -15,8 +15,3 @@ parameters:
         description: "measurement"
         required: true
         position: 1
-    tags:
-        type: "object"
-        description: "tags"
-        required: false
-        position: 2    
