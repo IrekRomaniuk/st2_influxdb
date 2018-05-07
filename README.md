@@ -1,6 +1,6 @@
-# InfluxDB Pack
+# InfluxDB Pack (CPU measurements)
 
-Run a query on InfluxDB
+Run a query on InfluxDB to alert on CPU
 
 ## Configuration
 
@@ -10,9 +10,9 @@ Example configuration:
 
 ## Using the pack
 
-
 ## Actions
 
-Currently, the following actions listed below are supported:
-- Run a query on InfluxDB
+Currently, the following sensors are implemented:
+- repvpn: "select * from cpu;"
+- panos: 
 
