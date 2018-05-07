@@ -1,4 +1,5 @@
 from st2reactor.sensor.base import PollingSensor
+from influxdb import InfluxDBClient
 
 # CPUMAX=20
 WINDOW=60
