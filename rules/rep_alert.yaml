@@ -1,0 +1,12 @@
+---
+name: rep_high_cpu
+pack: influxdb
+description: Alerting on high cpu.
+enabled: true
+trigger:
+    type: influxdb.rep_cpu
+action:
+    ref: core.sendmail
+    parameters:
+        subject: Yo
+        body: "{{ trigger.payload_parameter_1 }}"

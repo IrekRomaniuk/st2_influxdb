@@ -2,7 +2,7 @@
 name: "query"
 runner_type: "python-script"
 description: "Run a query on InfluxDB"
-enabled: true
+enabled: false
 entry_point: "query.py"
 parameters:    
     value:
