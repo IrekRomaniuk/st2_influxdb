@@ -5,7 +5,6 @@ from influxdb import InfluxDBClient
 WINDOW=60
 VALUE='*'
 MEASUREMENT='cpu'
-# result_list=[]
 
 class RepvpnSensor(PollingSensor):
     """
@@ -36,7 +35,7 @@ class RepvpnSensor(PollingSensor):
 
     def poll(self):        
         self._logger.debug('rep dispatching trigger...')
-        count = self.sensor_service.get_value('influxdb.count') or 0
+        # count = self.sensor_service.get_value('influxdb.count') or 0
         result = self._client.query(self._query)
         points = list(result.get_points(measurement=MEASUREMENT)) #, tags=tags
         max = 0
@@ -51,13 +50,11 @@ class RepvpnSensor(PollingSensor):
                     'id': string_point['id'],
                     'proc': string_point['proc'],
                     'value': string_point['value'],
-                    'count': int(count) + 1
+                    #'count': int(count) + 1
                     }
-                # result_list.append(string_point)
-                # print result_list
         
         self.sensor_service.dispatch(trigger='influxdb.rep_cpu', payload=payload)
-        self.sensor_service.set_value('influxdb.count', payload['count'])      
+        # self.sensor_service.set_value('influxdb.count', payload['count'])      
 
     def cleanup(self):
         pass
