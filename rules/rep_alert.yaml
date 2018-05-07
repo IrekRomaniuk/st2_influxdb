@@ -8,5 +8,7 @@ trigger:
 action:
     ref: core.sendmail
     parameters:
-        subject: Yo
-        body: "{{ trigger.payload_parameter_1 }}"
+        subject: "{{ trigger.firewall }}"
+        body: "{{ trigger.value }}"
+        from: "st2@commonwealth.com"
+        to: "iromaniuk@commonwealth.com"

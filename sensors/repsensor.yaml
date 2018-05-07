@@ -19,6 +19,4 @@ trigger_types:
           proc:
             type: "string" 
           value:
-            type: "integer"
-          count:
             type: "integer"        
