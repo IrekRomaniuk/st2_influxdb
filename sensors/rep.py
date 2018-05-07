@@ -1,10 +1,10 @@
 from st2reactor.sensor.base import PollingSensor
 
-CPUMAX=20
+# CPUMAX=20
 WINDOW=60
 VALUE='*'
 MEASUREMENT='cpu'
-result_list=[]
+# result_list=[]
 
 class repvpn(PollingSensor):
     """
@@ -38,20 +38,23 @@ class repvpn(PollingSensor):
         count = self.sensor_service.get_value('influxdb.count') or 0
         result = self._client.query(self._query)
         points = list(result.get_points(measurement=MEASUREMENT)) #, tags=tags
+        max = 0
         for point in points:
             string_point=dict([(str(k), str(v)) for k, v in point.items()])
-            if int(string_point['value'])>CPUMAX:
+            if int(string_point['value']) > max:
                 # print(string_point)
-                result_list.append(string_point)
+                max = string_point['value']
+                payload = {
+                    'site': string_point['site'], 
+                    'firewall': string_point['firewall'], 
+                    'id': string_point['id'],
+                    'proc': string_point['proc'],
+                    'value': string_point['value']
+                    'count': int(count) + 1
+                    }
+                # result_list.append(string_point)
                 # print result_list
-        payload = {
-            'site': string_point['site'], 
-            'firewall': string_point['firewall'], 
-            'id': string_point['id'],
-            'proc': string_point['proc'],
-            'vlaue': string_point['value']
-            'count': int(count) + 1
-            }
+        
         self.sensor_service.dispatch(trigger='influxdb.rep_cpu', payload=payload)
         self.sensor_service.set_value('influxdb.count', payload['count'])      
 
