@@ -13,4 +13,12 @@ trigger_types:
           site:
             type: "string"
           firewall:
-            type: "string"  
+            type: "string" 
+          id:
+            type: "string"
+          proc:
+            type: "string" 
+          value:
+            type: "string"
+          count:
+            type: "string"        
