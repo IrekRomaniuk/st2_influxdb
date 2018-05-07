@@ -19,7 +19,7 @@ class RepvpnSensor(PollingSensor):
         - indicates the interval between two successive poll() calls.
     """
     def __init__(self, sensor_service, config=None, poll_interval=None):
-        super(HelloSensor, self).__init__(sensor_service=sensor_service, 
+        super(RepvpnSensor, self).__init__(sensor_service=sensor_service, 
                                           config=config,
                                           poll_interval=poll_interval)
         self._logger = self.sensor_service.get_logger(name=self.__class__.__name__)        
