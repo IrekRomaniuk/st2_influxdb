@@ -6,7 +6,7 @@ VALUE='*'
 MEASUREMENT='cpu'
 # result_list=[]
 
-class repvpn(PollingSensor):
+class RepvpnSensor(PollingSensor):
     """
     * self.sensor_service
         - provides utilities like
@@ -49,7 +49,7 @@ class repvpn(PollingSensor):
                     'firewall': string_point['firewall'], 
                     'id': string_point['id'],
                     'proc': string_point['proc'],
-                    'value': string_point['value']
+                    'value': string_point['value'],
                     'count': int(count) + 1
                     }
                 # result_list.append(string_point)

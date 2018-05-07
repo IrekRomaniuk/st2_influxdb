@@ -1,7 +1,7 @@
 ---
 name: "query"                                         
 description: "Run a query on InfluxDB at regular intervals"       
-enabled: true                                
+enabled: false                                
 trigger:
   type: "core.st2.IntervalTimer"
   parameters:
