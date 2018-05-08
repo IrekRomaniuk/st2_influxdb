@@ -39,6 +39,7 @@ class RepvpnSensor(PollingSensor):
         result = self._client.query(self._query)
         points = list(result.get_points(measurement=MEASUREMENT)) #, tags=tags
         max = {}
+        max_all = 0
         payload = {}
         for point in points:
             string_point=dict([(str(k), str(v)) for k, v in point.items()])
@@ -49,6 +50,10 @@ class RepvpnSensor(PollingSensor):
                 # print(string_point)               
                 max[i] = int(string_point['value'])
                 payload[i]=int(max[i])
+                if int(string_point['value']) > max_all = 0:
+                    max_all = int(string_point['value'])
+                    payload['max-all'] = int(string_point['value'])
+
         
         self.sensor_service.dispatch(trigger='influxdb.rep_cpu', payload=payload)
         # self.sensor_service.set_value('influxdb.count', payload['count'])      
