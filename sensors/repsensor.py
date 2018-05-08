@@ -49,11 +49,7 @@ class RepvpnSensor(PollingSensor):
                 # print(string_point)               
                 max[i] = int(string_point['value'])
                 payload = {
-                    'site': string_point['site'], 
-                    'firewall': string_point['firewall'], 
-                    'id': string_point['id'],
-                    'proc': string_point['proc'],
-                    'value': string_point['value']
+                    i: max[i]
                 }
         
         self.sensor_service.dispatch(trigger='influxdb.rep_cpu', payload=payload)
