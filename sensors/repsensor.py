@@ -44,7 +44,7 @@ class RepvpnSensor(PollingSensor):
             if int(string_point['value']) > max:
                 # print(string_point)
                 # i = string_point['site'] + ":" + string_point['firewall'] + ":" + string_point['id'] + ":" + string_point['proc']
-                i = 'payload'
+                i = 'firewall'
                 max[i] = int(string_point['value'])
                 payload = {
                     i: max[i]
