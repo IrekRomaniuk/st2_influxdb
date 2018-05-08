@@ -3,5 +3,6 @@
   username: "firewall"    
   password: "password"  
   db: "firewalls"
-  measurement" "*"
+  measurement: "*"
+  max: 99
     

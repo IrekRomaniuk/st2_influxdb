@@ -1,8 +1,6 @@
 from st2reactor.sensor.base import PollingSensor
 from influxdb import InfluxDBClient
 
-# CPUMAX=20
-WINDOW=60
 VALUE='*'
 MEASUREMENT='cpu'
 
@@ -31,7 +29,8 @@ class RepvpnSensor(PollingSensor):
         self._base_url, self._port = self._config['base_url'].split(":") 
         # print(self._base_url, self._port, self._user, self._pass, self._db)    
         self._client = InfluxDBClient(self._base_url, self._port, self._user, self._pass, self._db)
-        self._query="select {0} from {1} WHERE time > now() - {2}s;".format(VALUE, MEASUREMENT, WINDOW)
+        self._query="select {0} from {1} WHERE time > now() - {2}s;".format(VALUE, MEASUREMENT, self._poll_interval) 
+        self._max=self._config['max']       
 
     def poll(self):        
         self._logger.debug('rep dispatching trigger...')
@@ -40,6 +39,7 @@ class RepvpnSensor(PollingSensor):
         points = list(result.get_points(measurement=MEASUREMENT)) #, tags=tags
         max = {}
         max_all = 0
+        alert_saved = self.sensor_service.get_value('influxdb.alert') or 0
         payload = {}
         for point in points:
             string_point=dict([(str(k), str(v)) for k, v in point.items()])
@@ -50,11 +50,12 @@ class RepvpnSensor(PollingSensor):
                 # print(string_point)               
                 max[i] = int(string_point['value'])
                 payload[i]=int(max[i])
+                #self.sensor_service.set_value('influxdb.alert', True)
                 if int(string_point['value']) > max_all:
                     max_all = int(string_point['value'])
-                    payload['max_all'] = int(string_point['value'])
+                    payload['max_all'] = int(string_point['value'])                    
 
-        
+        payload['num_pts'] = len(points)
         self.sensor_service.dispatch(trigger='influxdb.rep_cpu', payload=payload)
         # self.sensor_service.set_value('influxdb.count', payload['count'])      
 
