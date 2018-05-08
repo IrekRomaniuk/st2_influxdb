@@ -40,7 +40,7 @@ class RepvpnSensor(PollingSensor):
         points = list(result.get_points(measurement=MEASUREMENT)) #, tags=tags
         max = {}
         max_all = 0
-        alert_saved = self.sensor_service.get_value('influxdb.alert') or 0
+        alert_saved = self.sensor_service.get_value('influxdb.alert') or False
         payload = {}
         for point in points:
             string_point=dict([(str(k), str(v)) for k, v in point.items()])
