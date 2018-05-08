@@ -45,9 +45,7 @@ class RepvpnSensor(PollingSensor):
                 # print(string_point)
                 i = string_point['site']+':'+string_point['firewall']+':'+string_point['proc']+':'+string_point['id']
                 maxi[i] = int(string_point['value'])
-                payload = {
-                    i: max[i]
-                }
+                payload[i] = maxi[i]
             '''
                 payload = {
                     'site': string_point['site'], 
