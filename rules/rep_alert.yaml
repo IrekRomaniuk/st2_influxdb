@@ -9,6 +9,6 @@ action:
     ref: core.sendmail
     parameters:
         subject: "{{ trigger.firewall }}"
-        body: "{{ trigger.value }}"
+        body: "{{ trigger.value }}\n\n\n"
         from: "st2@commonwealth.com"
         to: "iromaniuk@commonwealth.com"
