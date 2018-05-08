@@ -1,0 +1,22 @@
+---
+class_name: "RepvpnSensor"
+entry_point: "repsensor.py"
+description: "Sensor polling REPVPN firewall"
+poll_interval: 300
+trigger_types:
+  -
+    name: "rep_cpu"
+    description: "repvpn cpu"
+    payload_schema:
+      type: "object"
+      properties:
+          site:
+            type: "string"
+          firewall:
+            type: "string" 
+          id:
+            type: "string"
+          proc:
+            type: "string" 
+          value:
+            type: "integer"        

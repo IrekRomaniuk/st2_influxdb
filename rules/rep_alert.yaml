@@ -8,7 +8,7 @@ trigger:
 action:
     ref: core.sendmail
     parameters:
-        subject: "{{ trigger.firewall }}"
-        body: "{{ trigger.value }}\n\n\n"
+        subject: "CPU load"
+        body: "{{ trigger }}\n\n\n"
         from: "st2@commonwealth.com"
         to: "iromaniuk@commonwealth.com"

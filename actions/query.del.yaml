@@ -1,0 +1,17 @@
+---
+name: "query"
+runner_type: "python-script"
+description: "Run a query on InfluxDB"
+enabled: false
+entry_point: "query.py"
+parameters:    
+    value:
+        type: "string"
+        description: "value"
+        required: false
+        position: 0     
+    measurement:
+        type: "string"
+        description: "measurement"
+        required: true
+        position: 1
