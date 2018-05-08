@@ -8,7 +8,7 @@ trigger:
 criteria:                              # optional
         trigger.alert: 
           type: "equals" 
-          pattern: true 
+          pattern: True 
 action:
     ref: core.sendmail
     parameters:
