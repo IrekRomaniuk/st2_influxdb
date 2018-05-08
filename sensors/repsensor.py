@@ -43,13 +43,13 @@ class RepvpnSensor(PollingSensor):
             string_point=dict([(str(k), str(v)) for k, v in point.items()])
             if int(string_point['value']) > max:
                 # print(string_point)
-                i = string_point['site']+':'+string_point['firewall']+':'+string_point['proc']+':'+string_point['id']
-                max[i] = int(string_point['value'])
-                '''
+                # i = string_point['site'] + ':' + string_point['firewall'] + ':' + string_point['proc'] + ':' + string_point['id']
+                # max[i] = int(string_point['value'])
+                """
                 payload = {
                     i : max[i]
                     }
-                '''
+                """
             
                 payload = {
                     'site': string_point['site'], 
