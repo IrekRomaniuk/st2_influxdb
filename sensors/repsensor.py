@@ -39,6 +39,7 @@ class RepvpnSensor(PollingSensor):
         result = self._client.query(self._query)
         points = list(result.get_points(measurement=MEASUREMENT)) #, tags=tags
         max = {}
+        payload = {}
         for point in points:
             string_point=dict([(str(k), str(v)) for k, v in point.items()])
             i = string_point['site'] + ":" + string_point['firewall'] + ":" + string_point['id'] + ":" + string_point['proc']
