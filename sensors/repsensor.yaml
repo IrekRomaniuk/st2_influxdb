@@ -9,3 +9,14 @@ trigger_types:
     description: "repvpn cpu"
     payload_schema:
       type: "object"
+      properties:
+        site:
+          type: "string"
+        firewall:
+          type: "string" 
+        id:
+          type: "string"
+        proc:
+          type: "string" 
+        value:
+          type: "integer"    
