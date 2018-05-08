@@ -8,7 +8,7 @@ trigger:
 action:
     ref: core.sendmail
     parameters:
-        subject: "CPU max load: " + "{{ trigger.max_all }}
+        subject: "CPU max load: {{ trigger.max_all }}""
         body: "{{ trigger }}\n\n\n"
         from: "st2@commonwealth.com"
         to: "iromaniuk@commonwealth.com"
