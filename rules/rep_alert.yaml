@@ -5,10 +5,14 @@ description: Alerting on high cpu.
 enabled: true
 trigger:
     type: influxdb.rep_cpu
+criteria:                              # optional
+        trigger.alert: 
+          type: "equals" 
+          pattern: true 
 action:
     ref: core.sendmail
     parameters:
-        subject: "CHP cpu load: {{ trigger.max_all }} (max: {{trigger.max}})"
+        subject: "CHP cpu load: {{ trigger.minimun  }} on {{ trigger.alerted}} (max: {{trigger.max}})"
         body: "{{ trigger }}\n\n\n"
         from: "st2@commonwealth.com"
         to: "iromaniuk@commonwealth.com"
