@@ -43,10 +43,9 @@ class RepvpnSensor(PollingSensor):
             string_point=dict([(str(k), str(v)) for k, v in point.items()])
             if int(string_point['value']) > max:
                 # print(string_point)
-                i = string_point['site'] + ":" + string_point['firewall'] + ":" + string_point['id'] + ":" + string_point['proc']
-                print(i)
+                # i = string_point['site'] + ":" + string_point['firewall'] + ":" + string_point['id'] + ":" + string_point['proc']
+                i = 'payload'
                 max[i] = int(string_point['value'])
-                print(max)
                 payload[i] = max[i]
         
         self.sensor_service.dispatch(trigger='influxdb.rep_cpu', payload=payload)
