@@ -57,7 +57,7 @@ class RepvpnSensor(PollingSensor):
                     payload['max_all'] = int(string_point['value'])                    
 
         payload['num_pts'] = len(points)
-        payload['max'] = self.sensor_service.get_value('influxdb.max') or 99
+        payload['max'] = self.sensor_service.get_value('influxdb.max') or 98
         self.sensor_service.dispatch(trigger='influxdb.rep_cpu', payload=payload)
         # self.sensor_service.set_value('influxdb.count', payload['count'])      
 
