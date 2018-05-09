@@ -12,7 +12,7 @@ criteria:                              # optional
 action:
     ref: core.sendmail
     parameters:
-        subject: "CHP cpu load: {{ trigger.minimun  }} on {{ trigger.alerted}} (max: {{trigger.max}})"
+        subject: "CHP cpu load: {{ trigger.minimum  }} on {{ trigger.alerted}} (max: {{trigger.max}})"
         body: "{{ trigger }}\n\n\n"
         from: "st2@commonwealth.com"
         to: "iromaniuk@commonwealth.com"

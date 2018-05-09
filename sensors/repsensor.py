@@ -15,6 +15,8 @@ class RepvpnSensor(PollingSensor):
           config.yaml in the pack.
     * self._poll_interval
         - indicates the interval between two successive poll() calls.
+    Testing:
+    curl -i -XPOST 'http://1.1.1.1:8086/write?db=firewalls' --data-binary 'cpu,firewall=TST,site=TST value=90'    
     """
     def __init__(self, sensor_service, config=None, poll_interval=None):
         super(RepvpnSensor, self).__init__(sensor_service=sensor_service, 
