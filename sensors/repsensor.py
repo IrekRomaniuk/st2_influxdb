@@ -61,11 +61,14 @@ class RepvpnSensor(PollingSensor):
         key_max = max(minimum.keys(), key=(lambda k: minimum[k]))
         cpu_max = minimum[key_max]
         payload['alert'] = False
+        
         if cpu_max < self._max:
             alert = False            
             if alert_saved != alert:
                 payload['alert'] = True
                 self.sensor_service.set_value('influxdb.alert', False)
+                payload['current'] = cpu_max
+                payload['alerted'] = ""
         else:
             alert = True            
             if alert_saved != alert:
