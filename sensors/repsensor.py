@@ -65,7 +65,8 @@ class RepvpnSensor(PollingSensor):
                     payload['alerted'] = i
                 else:
                     payload['alert'] = False
-                    self.sensor_service.set_value('influxdb.alert', False)    
+                    self.sensor_service.set_value('influxdb.alert', False)
+                break                        
 
         payload['num_pts'] = len(points)
         payload['max'] = int(self.sensor_service.get_value('influxdb.max')) or 98
