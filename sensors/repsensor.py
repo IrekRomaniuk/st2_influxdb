@@ -57,18 +57,26 @@ class RepvpnSensor(PollingSensor):
                 # if int(string_point['value']) > max_all:
                     # max_all = int(string_point['value'])
                     # payload['max_all'] = int(string_point['value'])                    
-        for i, cpu in minimum.iteritems():
-            if cpu > self._max:
-                alert = True
-                if alert_saved != alert:
-                    payload['alert'] = True
-                    self.sensor_service.set_value('influxdb.alert', True)
-                    payload['minimum'] = cpu
-                    payload['alerted'] = i
-                else:
-                    payload['alert'] = False
-                    self.sensor_service.set_value('influxdb.alert', False)
-                break                        
+        
+        key_max = max(minimum.keys(), key=(lambda k: minimum[k]))
+        cpu_max = minimum[key_max]
+        
+        if cpu_max < self._max:
+            alert = False
+            if alert_saved != alert:
+                payload['alert'] = True
+                self.sensor_service.set_value('influxdb.alert', False)
+        else:
+            alert = True            
+            if alert_saved != alert:
+                payload['alert'] = True
+                self.sensor_service.set_value('influxdb.alert', True)
+                for i, cpu in minimum.iteritems():
+                    if cpu > self._max:                    
+                        payload['current'] = cpu
+                        payload['alerted'] = i
+                        break                    
+
 
         payload['num_pts'] = len(points)
         payload['max'] = int(self.sensor_service.get_value('influxdb.max')) or 98
