@@ -28,8 +28,7 @@ class RepvpnSensor(PollingSensor):
         self._db = self._config['db'] # or None
         self._user = self._config['username']
         self._pass = self._config['password']
-        self._base_url, self._port = self._config['base_url'].split(":") 
-        # print(self._base_url, self._port, self._user, self._pass, self._db)    
+        self._base_url, self._port = self._config['base_url'].split(":")           
         self._client = InfluxDBClient(self._base_url, self._port, self._user, self._pass, self._db)
         self._query="select {0} from {1} WHERE time > now() - {2}s;".format(VALUE, MEASUREMENT, self._poll_interval) 
         self._max=int(self._config['max'])   
@@ -37,27 +36,21 @@ class RepvpnSensor(PollingSensor):
 
     def poll(self):        
         self._logger.debug('rep dispatching trigger...')
-        # count = self.sensor_service.get_value('influxdb.count') or 0
         result = self._client.query(self._query)
         points = list(result.get_points(measurement=MEASUREMENT)) #, tags=tags
         minimum = {}
-        # max_all = 0
         alert_saved = self.sensor_service.get_value('influxdb.alert') or False
-        payload['alert_saved']=alert_saved #testing only
-        alert = False
         payload = {}
+        payload['alert_saved']=alert_saved #testing only
+        alert = False        
         for point in points:
             string_point=dict([(str(k), str(v)) for k, v in point.items()])
             i = string_point['site'] + ":" + string_point['firewall'] + ":" + string_point['id'] + ":" + string_point['proc']
             if i not in minimum:
                 minimum[i] = 100
-            if int(string_point['value']) < minimum[i]:
-                # print(string_point)               
+            if int(string_point['value']) < minimum[i]:                              
                 minimum[i] = int(string_point['value'])
-                payload[i]=int(minimum[i])                
-                # if int(string_point['value']) > max_all:
-                    # max_all = int(string_point['value'])
-                    # payload['max_all'] = int(string_point['value'])                    
+                payload[i]=int(minimum[i])                                    
         
         key_max = max(minimum.keys(), key=(lambda k: minimum[k]))
         cpu_max = minimum[key_max]
@@ -83,8 +76,7 @@ class RepvpnSensor(PollingSensor):
 
         payload['num_pts'] = len(points)
         payload['max'] = int(self.sensor_service.get_value('influxdb.max')) or 98
-        self.sensor_service.dispatch(trigger='influxdb.rep_cpu', payload=payload)
-        # self.sensor_service.set_value('influxdb.count', payload['count'])      
+        self.sensor_service.dispatch(trigger='influxdb.rep_cpu', payload=payload)     
 
     def cleanup(self):
         pass
