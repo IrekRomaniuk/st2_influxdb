@@ -43,6 +43,7 @@ class RepvpnSensor(PollingSensor):
         minimum = {}
         # max_all = 0
         alert_saved = self.sensor_service.get_value('influxdb.alert') or False
+        payload['alert_saved']=alert_saved #testing only
         alert = False
         payload = {}
         for point in points:
@@ -79,7 +80,6 @@ class RepvpnSensor(PollingSensor):
                         payload['current'] = cpu
                         payload['alerted'] = i
                         break                    
-
 
         payload['num_pts'] = len(points)
         payload['max'] = int(self.sensor_service.get_value('influxdb.max')) or 98
