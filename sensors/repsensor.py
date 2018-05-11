@@ -41,6 +41,7 @@ class RepvpnSensor(PollingSensor):
         points = list(result.get_points(measurement=MEASUREMENT)) #, tags=tags
         minimum = {}
         alert_saved = ast.literal_eval(self.sensor_service.get_value('influxdb.alert')) or False
+        self._logger.debug('alert_saved {} type {}'.format(alert_saved, type(alert_saved)))
         payload = {}
         payload['alert_saved']=alert_saved #testing only
         alert = False        
