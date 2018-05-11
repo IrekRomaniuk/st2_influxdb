@@ -1,5 +1,6 @@
 from st2reactor.sensor.base import PollingSensor
 from influxdb import InfluxDBClient
+import ast
 
 VALUE='*'
 MEASUREMENT='cpu'
@@ -39,7 +40,7 @@ class RepvpnSensor(PollingSensor):
         result = self._client.query(self._query)
         points = list(result.get_points(measurement=MEASUREMENT)) #, tags=tags
         minimum = {}
-        alert_saved = self.sensor_service.get_value('influxdb.alert') or False
+        alert_saved = ast.literal_eval(self.sensor_service.get_value('influxdb.alert')) or False
         payload = {}
         payload['alert_saved']=alert_saved #testing only
         alert = False        
