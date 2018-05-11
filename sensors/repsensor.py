@@ -57,6 +57,7 @@ class RepvpnSensor(PollingSensor):
         payload['alert'] = False
         
         if cpu_max < self._max:
+            self._logger.debug('cpu_max {} < self._max {}'.format(cpu_max, self._max))
             alert = False            
             if alert_saved != alert:
                 payload['alert'] = True
