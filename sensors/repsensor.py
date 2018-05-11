@@ -1,6 +1,6 @@
 from st2reactor.sensor.base import PollingSensor
 from influxdb import InfluxDBClient
-import ast
+import ast, requests
 
 VALUE='*'
 MEASUREMENT='cpu'
@@ -36,7 +36,7 @@ class RepvpnSensor(PollingSensor):
         self.sensor_service.set_value('influxdb.max', self._max)    
 
     def poll(self):        
-        self._logger.debug('rep dispatching trigger...')
+        self._logger.debug('rep dispatching trigger...')        
         result = self._client.query(self._query)
         points = list(result.get_points(measurement=MEASUREMENT)) #, tags=tags
         minimum = {}
@@ -82,6 +82,7 @@ class RepvpnSensor(PollingSensor):
 
         payload['num_pts'] = len(points)
         payload['max'] = int(self.sensor_service.get_value('influxdb.max')) or 98
+        requests.get("https://hchk.io/f48b4815-cb37-417b-ae93-fafb6faec53f")
         self.sensor_service.dispatch(trigger='influxdb.rep_cpu', payload=payload)     
 
     def cleanup(self):
