@@ -60,11 +60,13 @@ class RepvpnSensor(PollingSensor):
             self._logger.debug('cpu_max {} < self._max {}'.format(cpu_max, self._max))
             alert = False            
             if alert_saved != alert:
+                self._logger.debug('alert_saved {} != alert {}'.format(alert_saved, alert))
                 payload['alert'] = True
                 self.sensor_service.set_value('influxdb.alert', False)
                 payload['current'] = cpu_max
                 payload['alerted'] = ""
         else:
+            self._logger.debug('cpu_max {} >= self._max {}'.format(cpu_max, self._max))
             alert = True            
             if alert_saved != alert:
                 payload['alert'] = True
