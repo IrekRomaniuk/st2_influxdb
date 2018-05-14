@@ -53,10 +53,11 @@ class RepvpnSensor(PollingSensor):
             if i not in minimum:
                 minimum[i] = 100
             if int(string_point[VALUE]) < minimum[i]:   
-                if int(string_point[VALUE]) == 0 and SKIP_ZERO:
+                if SKIP_ZERO and int(string_point[VALUE]) == 0 :
                     continue
-                minimum[i] = int(string_point[VALUE])
-                payload[i]=int(minimum[i])                                    
+                else:    
+                    minimum[i] = int(string_point[VALUE])
+                    payload[i]=int(minimum[i])                                    
         
         key_max = max(minimum.keys(), key=(lambda k: minimum[k]))
         cpu_max = minimum[key_max]
