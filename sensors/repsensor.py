@@ -2,7 +2,7 @@ from st2reactor.sensor.base import PollingSensor
 from influxdb import InfluxDBClient
 import ast, requests
 
-VALUE='*'
+VALUE= 'value'
 MEASUREMENT='cpu'
 TAGS = ['site','firewall', 'id', 'proc'] # 'site','firewall', 'id', 'proc'
 class RepvpnSensor(PollingSensor):
@@ -31,7 +31,7 @@ class RepvpnSensor(PollingSensor):
         self._pass = self._config['password']
         self._base_url, self._port = self._config['base_url'].split(":")           
         self._client = InfluxDBClient(self._base_url, self._port, self._user, self._pass, self._db)
-        self._query="select {0} from {1} WHERE time > now() - {2}s;".format(VALUE, MEASUREMENT, self._poll_interval) 
+        self._query="select {0} from {1} WHERE time > now() - {2}s;".format('*', MEASUREMENT, self._poll_interval) 
         self._max=int(self._config['max'])   
         self.sensor_service.set_value('influxdb.max', self._max)    
 
@@ -51,8 +51,8 @@ class RepvpnSensor(PollingSensor):
             i = ":".join([string_point[tag] for tag in TAGS])
             if i not in minimum:
                 minimum[i] = 100
-            if int(string_point['value']) < minimum[i]:                              
-                minimum[i] = int(string_point['value'])
+            if int(string_point[VALUE]) < minimum[i]:                              
+                minimum[i] = int(string_point[VALUE])
                 payload[i]=int(minimum[i])                                    
         
         key_max = max(minimum.keys(), key=(lambda k: minimum[k]))
