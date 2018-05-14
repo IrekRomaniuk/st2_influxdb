@@ -4,7 +4,7 @@ import ast, requests
 
 VALUE='*'
 MEASUREMENT='cpu'
-
+TAGS = ['site','firewall', 'id', 'proc'] # 'site','firewall', 'id', 'proc'
 class RepvpnSensor(PollingSensor):
     """
     * self.sensor_service
@@ -47,7 +47,8 @@ class RepvpnSensor(PollingSensor):
         alert = False        
         for point in points:
             string_point=dict([(str(k), str(v)) for k, v in point.items()])
-            i = string_point['site'] + ":" + string_point['firewall'] + ":" + string_point['id'] + ":" + string_point['proc']
+            # i = string_point['site'] + ":" + string_point['firewall'] + ":" + string_point['id'] + ":" + string_point['proc']
+            i = ":".join([string_point[tag] for tag in TAGS])
             if i not in minimum:
                 minimum[i] = 100
             if int(string_point['value']) < minimum[i]:                              
