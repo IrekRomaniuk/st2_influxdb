@@ -5,6 +5,7 @@ import ast, requests
 VALUE= 'value'
 MEASUREMENT='cpu'
 TAGS = ['site','firewall', 'id', 'proc'] # 'site','firewall', 'id', 'proc'
+SKIP_ZERO = True # skip zero values
 class RepvpnSensor(PollingSensor):
     """
     * self.sensor_service
@@ -51,7 +52,9 @@ class RepvpnSensor(PollingSensor):
             i = ":".join([string_point[tag] for tag in TAGS])
             if i not in minimum:
                 minimum[i] = 100
-            if int(string_point[VALUE]) < minimum[i]:                              
+            if int(string_point[VALUE]) < minimum[i]:   
+                if int(string_point[VALUE]) == 0 and SKIP_ZERO:
+                    continue
                 minimum[i] = int(string_point[VALUE])
                 payload[i]=int(minimum[i])                                    
         
