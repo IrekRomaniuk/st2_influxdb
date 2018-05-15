@@ -1,7 +1,7 @@
 from st2reactor.sensor.base import PollingSensor
 from influxdb import InfluxDBClient
 import ast, requests
-from common_lib import influmax
+from commonlib import influmax
 
 VALUE= 'value'
 DUMMY=999
