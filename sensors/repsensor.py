@@ -47,8 +47,8 @@ class RepvpnSensor(PollingSensor):
         payload = {}
         payload['alert_saved']=alert_saved #testing only
         alert = False  
-        payload['zeroes'] = 0
-        payload['points'] = 0
+        payload['zeros_pts'] = 0
+        payload['below_pts'] = 0
         current = 0
         alerted = ''
         for point in points:
@@ -56,17 +56,17 @@ class RepvpnSensor(PollingSensor):
             i = ":".join([string_point[tag] for tag in TAGS])
             self._logger.debug('point {} of value {}'.format(i,int(string_point[VALUE])))
             if i not in minimum:
-                minimum[i] = 999
+                minimum[i] = DUMMY
             if int(string_point[VALUE]) < minimum[i]:
                 self._logger.debug('SKIP_ZERO {} and value {} is below {}'.format(SKIP_ZERO, int(string_point[VALUE]), minimum[i]))
                 if SKIP_ZERO and (int(string_point[VALUE]) == 0) :                    
-                    payload['zeroes'] += 1
+                    payload['zeros_pts'] += 1
                 else:                      
                     minimum[i] = int(string_point[VALUE])
                     payload[i]=int(minimum[i])  
-                    payload['points'] += 1                                  
+                    payload['below_pts'] += 1                                  
         
-        minimum = {k:v for k,v in minimum.items() if v != 999}
+        minimum = {k:v for k,v in minimum.items() if v != DUMMY}
         # if minimum:
 
         key_max = max(minimum.keys(), key=(lambda k: minimum[k]))
