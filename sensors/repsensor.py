@@ -65,7 +65,9 @@ class RepvpnSensor(PollingSensor):
                     payload[i]=int(minimum[i])  
                     payload['points'] += 1                                  
         
-        minimum = {k:v for k,v in minimum.items() if v == 0}
+        minimum = {k:v for k,v in minimum.items() if v != 999}
+        # if minimum:
+
         key_max = max(minimum.keys(), key=(lambda k: minimum[k]))
         cpu_max = minimum[key_max]
         payload['alert'] = False
