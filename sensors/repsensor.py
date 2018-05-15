@@ -68,7 +68,7 @@ class RepvpnSensor(PollingSensor):
         key_max = max(minimum.keys(), key=(lambda k: minimum[k]))
         cpu_max = minimum[key_max]
         payload['alert'] = False
-        
+        self._logger.debug('minimum {} '.format(minimum))
         if cpu_max < self._max:
             self._logger.debug('cpu_max {} < self._max {}'.format(cpu_max, self._max))
             alert = False            
