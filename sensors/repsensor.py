@@ -54,12 +54,11 @@ class RepvpnSensor(PollingSensor):
             self._logger.debug('point {} of value {}'.format(i,int(string_point[VALUE])))
             if i not in minimum:
                 minimum[i] = 100
-            if int(string_point[VALUE]) < minimum[i]:   
-                if SKIP_ZERO and (int(string_point[VALUE]) == 0) :
-                    self._logger.debug('SKIP_ZERO {} of type {} and value {} is {}'.format(SKIP_ZERO, type(SKIP_ZERO), int(string_point[VALUE]), (int(string_point[VALUE]) == 0)))
+            if int(string_point[VALUE]) < minimum[i]:
+                self._logger.debug('SKIP_ZERO {} and value {} is {} below {}'.format(SKIP_ZERO, int(string_point[VALUE]), minimum[i]))
+                if SKIP_ZERO and (int(string_point[VALUE]) == 0) :                    
                     payload['zeroes'] += 1
-                else:  
-                    self._logger.debug('SKIP_ZERO {} and value {} is {}'.format(SKIP_ZERO, int(string_point[VALUE]), (int(string_point[VALUE]) == 0)))
+                else:                      
                     minimum[i] = int(string_point[VALUE])
                     payload[i]=int(minimum[i])  
                     payload['points'] += 1                                  
@@ -79,16 +78,18 @@ class RepvpnSensor(PollingSensor):
                 payload['current'] = cpu_max
                 payload['alerted'] = ""
         else:
-            self._logger.debug('cpu_max {} >= self._max {}'.format(cpu_max, self._max))
-            alert = True            
+            for i, cpu in minimum.iteritems():
+                    if cpu > self._max:
+                        current = cpu
+                        alerted = i
+                        break 
+            self._logger.debug('cpu_max {} >= self._max {} for '.format(cpu_max, self._max, i))
+            alert = True                      
             if alert_saved != alert:
                 payload['alert'] = True
-                self.sensor_service.set_value('influxdb.alert', True)
-                for i, cpu in minimum.iteritems():
-                    if cpu > self._max:                    
-                        payload['current'] = cpu
-                        payload['alerted'] = i
-                        break                    
+                self.sensor_service.set_value('influxdb.alert', True)                                   
+                payload['current'] = cpu
+                payload['alerted'] = i                  
 
         payload['num_pts'] = len(points)
         payload['max'] = int(self.sensor_service.get_value('influxdb.max')) or 98
