@@ -48,6 +48,8 @@ class RepvpnSensor(PollingSensor):
         alert = False  
         payload['zeroes'] = 0
         payload['points'] = 0
+        current = 0
+        alerted = ''
         for point in points:
             string_point=dict([(str(k), str(v)) for k, v in point.items()])            
             i = ":".join([string_point[tag] for tag in TAGS])
