@@ -3,6 +3,7 @@ from influxdb import InfluxDBClient
 import ast, requests
 
 VALUE= 'value'
+DUMMY=999
 MEASUREMENT='cpu'
 TAGS = ['site','firewall', 'id', 'proc'] # 'site','firewall', 'id', 'proc'
 SKIP_ZERO = True # skip zero values
