@@ -1,5 +1,4 @@
-def InfluxmaxSensor():
-    self._logger.debug('rep dispatching trigger...')        
+def influmax():          
     result = self._client.query(self._query)
     points = list(result.get_points(measurement=MEASUREMENT)) #, tags=tags
     minimum = {}
