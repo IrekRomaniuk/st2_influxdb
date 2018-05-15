@@ -46,7 +46,8 @@ class RepvpnSensor(PollingSensor):
         payload = {}
         payload['alert_saved']=alert_saved #testing only
         alert = False  
-        payload['zeroes'] = 0      
+        payload['zeroes'] = 0master
+
         for point in points:
             string_point=dict([(str(k), str(v)) for k, v in point.items()])
             # i = string_point['site'] + ":" + string_point['firewall'] + ":" + string_point['id'] + ":" + string_point['proc']
@@ -54,7 +55,7 @@ class RepvpnSensor(PollingSensor):
             if i not in minimum:
                 minimum[i] = 100
             if int(string_point[VALUE]) < minimum[i]:   
-                if SKIP_ZERO and int(string_point[VALUE]) == 0 :
+                if SKIP_ZERO and (int(string_point[VALUE]) == 0) :
                     payload['zeroes'] = payload['zeroes'] + 1
                 else:    
                     minimum[i] = int(string_point[VALUE])
