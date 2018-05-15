@@ -56,11 +56,11 @@ class RepvpnSensor(PollingSensor):
             if int(string_point[VALUE]) < minimum[i]:   
                 if SKIP_ZERO and (int(string_point[VALUE]) == 0) :
                     self._logger.debug('SKIP_ZERO {} of type {} and value {} is {}'.format(SKIP_ZERO, type(SKIP_ZERO), 
-                                        int(string_point[VALUE]), (int(string_point[VALUE]) == 0))))
+                                        int(string_point[VALUE]), (int(string_point[VALUE]) == 0)))
                     payload['zeroes'] += 1
                 else:  
                     self._logger.debug('SKIP_ZERO {} and value {} is {}'.format(SKIP_ZERO, int(string_point[VALUE], 
-                                        (int(string_point[VALUE]) == 0)))) 
+                                        (int(string_point[VALUE]) == 0)))
                     minimum[i] = int(string_point[VALUE])
                     payload[i]=int(minimum[i])  
                     payload['points'] += 1                                  
