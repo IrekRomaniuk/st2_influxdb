@@ -46,7 +46,7 @@ class RepvpnSensor(PollingSensor):
         payload = {}
         payload['alert_saved']=alert_saved #testing only
         alert = False  
-        payload['zeroes'] = 0master
+        payload['zeroes'] = 0
 
         for point in points:
             string_point=dict([(str(k), str(v)) for k, v in point.items()])
