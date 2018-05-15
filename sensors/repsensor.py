@@ -51,6 +51,7 @@ class RepvpnSensor(PollingSensor):
         for point in points:
             string_point=dict([(str(k), str(v)) for k, v in point.items()])            
             i = ":".join([string_point[tag] for tag in TAGS])
+            self._logger.debug('point is  {}'.format(i))
             if i not in minimum:
                 minimum[i] = 100
             if int(string_point[VALUE]) < minimum[i]:   
