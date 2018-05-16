@@ -1,5 +1,5 @@
 ---
-class_name: "RepvpnSensor"
+class_name: "ChpSensor"
 entry_point: "chpsensor.py"
 description: "Sensor polling REPVPN firewall"
 poll_interval: 300
