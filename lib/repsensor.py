@@ -1,7 +1,6 @@
 from st2reactor.sensor.base import PollingSensor
 from influxdb import InfluxDBClient
 import ast, requests
-from commonlib import influmax
 
 # VALUE= 'value'
 # MEASUREMENT='cpu'
@@ -21,15 +20,16 @@ class RepvpnSensor(PollingSensor):
     Testing:
     curl -i -XPOST 'http://1.1.1.1:8086/write?db=firewalls' --data-binary 'cpu,firewall=TST,site=TST value=90'    
     """
-    def __init__(self, sensor_service, config=None, poll_interval=None):
+    def __init__(self, sensor_service, config=None, poll_interval=None, value, measurement, tags, skip_zero):
         super(RepvpnSensor, self).__init__(sensor_service=sensor_service, 
                                           config=config,
                                           poll_interval=poll_interval)
-        self._logger = self.sensor_service.get_logger(name=self.__class__.__name__)  
-        self.value = 'value'
-        self.measurement = 'cpu'
-        self.tags = ['site','firewall', 'id', 'proc'] # 'site','firewall', 'id', 'proc'
-        self.skip_zero = True # skip zero values
+        self._logger = self.sensor_service.get_logger(name=self.__class__.__name__)
+          
+        self.value = value # 'value'
+        self.measurement = measurement # 'cpu'
+        self.tags = = tags # ['site','firewall', 'id', 'proc'] # 'site','firewall', 'id', 'proc'
+        self.skip_zero = skip_zero # True # skip zero values
 
         
     def setup(self):
