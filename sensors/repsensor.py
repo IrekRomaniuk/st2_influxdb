@@ -3,10 +3,10 @@ from influxdb import InfluxDBClient
 import ast, requests
 from commonlib import influmax
 
-VALUE= 'value'
-MEASUREMENT='cpu'
-TAGS = ['site','firewall', 'id', 'proc'] # 'site','firewall', 'id', 'proc'
-SKIP_ZERO = True # skip zero values
+# VALUE= 'value'
+# MEASUREMENT='cpu'
+# TAGS = ['site','firewall', 'id', 'proc'] # 'site','firewall', 'id', 'proc'
+# SKIP_ZERO = True # skip zero values
 class RepvpnSensor(PollingSensor):
     """
     * self.sensor_service
@@ -25,7 +25,12 @@ class RepvpnSensor(PollingSensor):
         super(RepvpnSensor, self).__init__(sensor_service=sensor_service, 
                                           config=config,
                                           poll_interval=poll_interval)
-        self._logger = self.sensor_service.get_logger(name=self.__class__.__name__)        
+        self._logger = self.sensor_service.get_logger(name=self.__class__.__name__)  
+        self.value = 'value'
+        self.measurement = 'cpu'
+        self.tags = ['site','firewall', 'id', 'proc'] # 'site','firewall', 'id', 'proc'
+        self.skip_zero = True # skip zero values
+
         
     def setup(self):
         self._db = self._config['db'] # or None
@@ -33,7 +38,7 @@ class RepvpnSensor(PollingSensor):
         self._pass = self._config['password']
         self._base_url, self._port = self._config['base_url'].split(":")           
         self._client = InfluxDBClient(self._base_url, self._port, self._user, self._pass, self._db)
-        self._query="select {0} from {1} WHERE time > now() - {2}s;".format('*', MEASUREMENT, self._poll_interval) 
+        self._query="select {0} from {1} WHERE time > now() - {2}s;".format('*', self.measurement, self._poll_interval) 
         self._max=int(self._config['max'])   
         self.sensor_service.set_value('influxdb.max', self._max)    
 
@@ -41,7 +46,7 @@ class RepvpnSensor(PollingSensor):
         self._logger.debug('rep dispatching trigger...')   
         DUMMY=999     
         result = self._client.query(self._query)
-        points = list(result.get_points(measurement=MEASUREMENT)) #, tags=tags
+        points = list(result.get_points(measurement=self.measurement)) #, tags=tags
         minimum = {}
         alert_saved = ast.literal_eval(self.sensor_service.get_value('influxdb.alert')) or False
         self._logger.debug('alert_saved {} type {}'.format(alert_saved, type(alert_saved)))
@@ -54,16 +59,16 @@ class RepvpnSensor(PollingSensor):
         alerted = ''
         for point in points:
             string_point=dict([(str(k), str(v)) for k, v in point.items()])            
-            i = ":".join([string_point[tag] for tag in TAGS])
-            self._logger.debug('point {} of value {}'.format(i,int(string_point[VALUE])))
+            i = ":".join([string_point[tag] for tag in self.tags])
+            self._logger.debug('point {} of value {}'.format(i,int(string_point[self.value])))
             if i not in minimum:
                 minimum[i] = DUMMY
-            if int(string_point[VALUE]) < minimum[i]:
-                self._logger.debug('SKIP_ZERO {} and value {} is below {}'.format(SKIP_ZERO, int(string_point[VALUE]), minimum[i]))
-                if SKIP_ZERO and (int(string_point[VALUE]) == 0) :                    
+            if int(string_point[self.value]) < minimum[i]:
+                self._logger.debug('self.skip_zero {} and value {} is below {}'.format(self.skip_zero, int(string_point[self.value]), minimum[i]))
+                if self.skip_zero and (int(string_point[self.value]) == 0) :                    
                     payload['zeros_pts'] += 1
                 else:                      
-                    minimum[i] = int(string_point[VALUE])
+                    minimum[i] = int(string_point[self.value])
                     payload[i]=int(minimum[i])  
                     payload['below_pts'] += 1                                  
         
