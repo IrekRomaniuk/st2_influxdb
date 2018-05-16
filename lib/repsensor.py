@@ -28,7 +28,7 @@ class RepvpnSensor(PollingSensor):
           
         self.value = value # 'value'
         self.measurement = measurement # 'cpu'
-        self.tags = = tags # ['site','firewall', 'id', 'proc'] # 'site','firewall', 'id', 'proc'
+        self.tags = tags # ['site','firewall', 'id', 'proc'] # 'site','firewall', 'id', 'proc'
         self.skip_zero = skip_zero # True # skip zero values
 
         
