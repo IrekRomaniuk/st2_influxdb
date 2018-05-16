@@ -4,7 +4,6 @@ import ast, requests
 from commonlib import influmax
 
 VALUE= 'value'
-DUMMY=999
 MEASUREMENT='cpu'
 TAGS = ['site','firewall', 'id', 'proc'] # 'site','firewall', 'id', 'proc'
 SKIP_ZERO = True # skip zero values
@@ -39,7 +38,8 @@ class RepvpnSensor(PollingSensor):
         self.sensor_service.set_value('influxdb.max', self._max)    
 
     def poll(self):        
-        self._logger.debug('rep dispatching trigger...')        
+        self._logger.debug('rep dispatching trigger...')   
+        DUMMY=999     
         result = self._client.query(self._query)
         points = list(result.get_points(measurement=MEASUREMENT)) #, tags=tags
         minimum = {}
