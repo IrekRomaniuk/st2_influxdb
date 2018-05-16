@@ -40,7 +40,8 @@ class RepvpnSensor(PollingSensor):
         self._client = InfluxDBClient(self._base_url, self._port, self._user, self._pass, self._db)
         self._query="select {0} from {1} WHERE time > now() - {2}s;".format('*', self.measurement, self._poll_interval) 
         self._max=int(self._config['max'])   
-        self.sensor_service.set_value('influxdb.max', self._max)    
+        self.sensor_service.set_value('influxdb.max', self._max)  
+        self.sensor_service.set_value('influxdb.alert', ast.literal_eval('False'))
 
     def poll(self):        
         self._logger.debug('rep dispatching trigger...')   
