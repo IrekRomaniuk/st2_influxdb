@@ -1,0 +1,18 @@
+---
+name: pan_high_cpu
+pack: influxdb
+description: Alerting on high cpu.
+enabled: true
+trigger:
+    type: influxdb.pan_cpu
+criteria:                              # optional
+        trigger.alert: 
+          type: "equals" 
+          pattern: true 
+action:
+    ref: core.sendmail
+    parameters:
+        subject: "PAN cpu load: {{ trigger.current  }} {{ trigger.alerted}} (max: {{trigger.max}})"
+        body: "{{ trigger }}\n\n\n"
+        from: "st2@commonwealth.com"
+        to: "iromaniuk@commonwealth.com"

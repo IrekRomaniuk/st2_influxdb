@@ -6,6 +6,6 @@ poll_interval: 300
 trigger_types:
   -
     name: "rep_cpu"
-    description: "CHP cpu"
+    description: "monitor CHP cpu"
     payload_schema:
       type: "object"         
