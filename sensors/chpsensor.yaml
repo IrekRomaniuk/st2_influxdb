@@ -1,7 +1,7 @@
 ---
 class_name: "ChpSensor"
 entry_point: "chpsensor.py"
-description: "Sensor polling cpu (CHP firewalls)"
+description: "Sensor polling 'cpu' (for Checkpoint)"
 poll_interval: 300
 trigger_types:
   -
