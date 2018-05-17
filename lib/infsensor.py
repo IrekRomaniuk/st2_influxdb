@@ -17,7 +17,7 @@ class InfMaxSensor(PollingSensor):
     curl -i -XPOST 'http://1.1.1.1:8086/write?db=firewalls' --data-binary 'cpu,firewall=TST,site=TST value=90'    
     """
     def __init__(self, sensor_service, config, poll_interval, value, measurement, tags, skip_zero): #sensor_service, config, poll_interval, 
-        super(RepvpnSensor, self).__init__(sensor_service=sensor_service,  
+        super(InfMaxSensor, self).__init__(sensor_service=sensor_service,  
                                           config=config,                                 
                                           poll_interval=poll_interval)
         self._logger = self.sensor_service.get_logger(name=self.__class__.__name__)
