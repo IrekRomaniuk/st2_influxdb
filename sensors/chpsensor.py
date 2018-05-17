@@ -7,6 +7,6 @@ class ChpSensor(InfMaxSensor):
     """
     def __init__(self, sensor_service, config, poll_interval):             
         super(ChpSensor, self).__init__(sensor_service=sensor_service, config=config, poll_interval=poll_interval, 
-                                        value='value', measurement='cpu', 
+                                        value='value', measurement='cpu', trigger='influxdb.rep_cpu',
                                         tags =['site','firewall', 'id', 'proc'], skip_zero=True)
     

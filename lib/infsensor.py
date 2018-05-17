@@ -14,7 +14,7 @@ class InfMaxSensor(PollingSensor):
     * self._poll_interval
         - indicates the interval between two successive poll() calls.
     """
-    def __init__(self, sensor_service, config, poll_interval, value, measurement, tags, skip_zero): #sensor_service, config, poll_interval, 
+    def __init__(self, sensor_service, config, poll_interval, value, measurement, tags, trigger, skip_zero): #sensor_service, config, poll_interval, 
         super(InfMaxSensor, self).__init__(sensor_service=sensor_service,  
                                           config=config,                                 
                                           poll_interval=poll_interval)
@@ -23,6 +23,7 @@ class InfMaxSensor(PollingSensor):
         self.value = value # 'value'
         self.measurement = measurement # 'cpu'
         self.tags = tags # ['site','firewall', 'id', 'proc'] # 'site','firewall', 'id', 'proc'
+        self.trigger='influxdb.rep_cpu'
         self.skip_zero = skip_zero # True # skip zero values
 
         
@@ -38,7 +39,7 @@ class InfMaxSensor(PollingSensor):
         self.sensor_service.set_value('influxdb.alert', ast.literal_eval('False'))
 
     def poll(self):        
-        self._logger.debug('rep dispatching trigger...')   
+        self._logger.debug('InfMaxSensor dispatching trigger...')   
         DUMMY=999     
         result = self._client.query(self._query)
         points = list(result.get_points(measurement=self.measurement)) #, tags=tags
@@ -101,7 +102,7 @@ class InfMaxSensor(PollingSensor):
         payload['num_pts'] = len(points)
         payload['max'] = int(self.sensor_service.get_value('influxdb.max')) or 98
         requests.get("https://hchk.io/f48b4815-cb37-417b-ae93-fafb6faec53f")
-        self.sensor_service.dispatch(trigger='influxdb.rep_cpu', payload=payload)     
+        self.sensor_service.dispatch(trigger=self.trigger, payload=payload)     
 
     def cleanup(self):
         pass
