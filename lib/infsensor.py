@@ -23,7 +23,7 @@ class InfMaxSensor(PollingSensor):
         self.value = value # 'value'
         self.measurement = measurement # 'cpu'
         self.tags = tags # ['site','firewall', 'id', 'proc'] # 'site','firewall', 'id', 'proc'
-        self.trigger='influxdb.rep_cpu'
+        self.trigger= trigger
         self.skip_zero = skip_zero # True # skip zero values
 
         
