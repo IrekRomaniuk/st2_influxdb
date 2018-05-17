@@ -10,9 +10,11 @@ Example configuration:
 
 ## Using the pack
 
+See my blog post
+
 ## Actions
 
 Currently, the following sensors are implemented:
-- repvpn: "select * from cpu;"
-- panos: 
+- gaia: "select * from cpu;" and find max per series
+- panos: "select * from cpu_load;" and find max per series
 

@@ -1,11 +1,11 @@
 ---
 class_name: "ChpSensor"
 entry_point: "chpsensor.py"
-description: "Sensor polling REPVPN firewall"
+description: "Sensor polling cpu (CHP firewalls)"
 poll_interval: 300
 trigger_types:
   -
     name: "rep_cpu"
-    description: "repvpn cpu"
+    description: "CHP cpu"
     payload_schema:
       type: "object"         

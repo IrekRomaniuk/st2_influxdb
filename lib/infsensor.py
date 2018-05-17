@@ -2,11 +2,7 @@ from st2reactor.sensor.base import PollingSensor
 from influxdb import InfluxDBClient
 import ast, requests
 
-# VALUE= 'value'
-# MEASUREMENT='cpu'
-# TAGS = ['site','firewall', 'id', 'proc'] # 'site','firewall', 'id', 'proc'
-# SKIP_ZERO = True # skip zero values
-class RepvpnSensor(PollingSensor):
+class InfMaxSensor(PollingSensor):
     """
     * self.sensor_service
         - provides utilities like
