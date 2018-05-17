@@ -8,5 +8,5 @@ class PanSensor(InfMaxSensor):
     def __init__(self, sensor_service, config, poll_interval):             
         super(PanSensor, self).__init__(sensor_service=sensor_service, config=config, poll_interval=poll_interval, 
                                         value='cpu_load', measurement='cpu_load', trigger='influxdb.pan_cpu',
-                                        tags =['site','firewall','coreid','dsp'], skip_zero=True) # ,'coreid','dsp'
+                                        tags =['site','firewall','dsp'], skip_zero=True) # ,'coreid','dsp'
     
