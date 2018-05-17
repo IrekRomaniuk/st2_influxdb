@@ -1,7 +1,7 @@
 ---
 name: pan_high_cpu
 pack: influxdb
-description: Alerting on high cpu.
+description: Alerting on high Paloalto cpu.
 enabled: true
 trigger:
     type: influxdb.pan_cpu

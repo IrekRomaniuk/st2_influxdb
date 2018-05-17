@@ -1,7 +1,7 @@
 ---
 name: rep_high_cpu
 pack: influxdb
-description: Alerting on high cpu.
+description: Alerting on high Checkpoint cpu.
 enabled: true
 trigger:
     type: influxdb.rep_cpu
