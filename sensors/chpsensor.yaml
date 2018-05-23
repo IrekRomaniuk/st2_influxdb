@@ -1,11 +1,11 @@
 ---
 class_name: "ChpSensor"
 entry_point: "chpsensor.py"
-description: "Sensor polling 'cpu' (for Checkpoint)"
+description: "Sensor polling 'cpu' from Influxdb (for Checkpoint)"
 poll_interval: 300
 trigger_types:
   -
     name: "rep_cpu"
-    description: "monitor CHP cpu"
+    description: "pulling CHP cpu from Influxdb"
     payload_schema:
       type: "object"         
